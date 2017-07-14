@@ -57,7 +57,9 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " for mac vim, first install fcitx-remote-for-osx
 " brew install fcitx-remote-for-osx
-source ~/.vim/fcitx.vim
+if filereadable(glob("~/MacSettings/fcitx.vim"))
+	source ~/MacSettings/fcitx.vim
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
