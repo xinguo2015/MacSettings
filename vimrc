@@ -9,68 +9,6 @@ au BufWrite /private/etc/pw.* set nowritebackup nobackup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" vundle managed plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off " required
-if filereadable(glob("~/.vim/Vundle.Plugin.vim"))
-	"echo "~/.vim/Vundle.Plugin.vim"
-	source ~/.vim/Vundle.Plugin.vim
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 设置主键 编辑设置 .vimrc
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
-nmap <silent> <leader>gg :source ~/.vimrc<cr>
-nmap <silent> <leader>vv :e ~/.vimrc<cr>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" g:mysysname  - the system name running vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mysysname = "ubuntu"
-if has("macunix")
-	let g:mysysname = "macos"
-elseif has("win32") || has("win64")
-	let g:mysysname = "windows"
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 查找和应用 project文件 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! FindProjectVIM()
-	if filereadable(glob("./proj.vim"))
-		source ./proj.vim
-	elseif filereadable(glob("../proj.vim"))
-		exe "cd .."
-		source ./proj.vim
-	elseif filereadable(glob("../../proj.vim"))
-		exe "cd ../.."
-		source ./proj.vim
-	endif
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 输入法切换，退出insert模式，自动进入关闭输入法
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" for mac vim, first install fcitx-remote-for-osx
-" brew install fcitx-remote-for-osx
-if filereadable(glob("~/MacSettings/fcitx.vim"))
-	source ~/MacSettings/fcitx.vim
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remember info about open buffers on close
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set viminfo^=%
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " typical settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on " 文件类型插件
@@ -92,10 +30,6 @@ set softtabstop=4
 set smarttab
 set shiftwidth=4
 "set expandtab "使用空格替代制表符
-set guifont=Monaco:h16
-set guifont=Courier\ New:h16
-set guifont=Menlo:h17
-set guifont=Courier\ New:h16
 set linespace=2
 set incsearch
 set hlsearch
@@ -151,6 +85,76 @@ colorscheme darkblue
 colorscheme zellner
 colorscheme industry "good, black bkgd
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vundle managed plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off " required
+if filereadable(glob("~/.vim/Vundle.Plugin.vim"))
+	"echo "~/.vim/Vundle.Plugin.vim"
+	source ~/.vim/Vundle.Plugin.vim
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 设置主键 编辑设置 .vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = ","
+nmap <silent> <leader>gg :source ~/.vimrc<cr>
+nmap <silent> <leader>vv :e ~/.vimrc<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" g:mysysname  - the system name running vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:mysysname = "ubuntu"
+if has("macunix")
+	let g:mysysname = "macos"
+	set guifont=Courier\ New:h18
+elseif has("win32") || has("win64")
+	let g:mysysname = "windows"
+else
+	set guifont=Courier\ New:h16
+	set guifont=Menlo:h17
+	set guifont=Monaco:h16
+	au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+	au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 查找和应用 project文件 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! FindProjectVIM()
+	if filereadable(glob("./proj.vim"))
+		source ./proj.vim
+	elseif filereadable(glob("../proj.vim"))
+		exe "cd .."
+		source ./proj.vim
+	elseif filereadable(glob("../../proj.vim"))
+		exe "cd ../.."
+		source ./proj.vim
+	endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 输入法切换，退出insert模式，自动进入关闭输入法
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" for mac vim, first install fcitx-remote-for-osx
+" brew install fcitx-remote-for-osx
+if filereadable(glob("~/MacSettings/fcitx.vim"))
+	source ~/MacSettings/fcitx.vim
+endif
+source ~/MacSettings/fcitx.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remember info about open buffers on close
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set viminfo^=%
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
